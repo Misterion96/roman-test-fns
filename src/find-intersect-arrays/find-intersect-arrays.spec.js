@@ -40,7 +40,7 @@ describe('test find intersect arrays', () => {
   TEST_CASES.forEach(({name, input, output}) => {
     it(name, () => {
       const result = findIntersectArrays(...input)
-      expect(result).toStrictEqual(output)
+      expect(result.sort()).toStrictEqual(output.sort())
     })
   })
 })
