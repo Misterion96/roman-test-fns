@@ -24,6 +24,15 @@ const TEST_CASES = [
       [5, 5, 5, 5, 5, 7]
     ],
     output: [5, 7]
+  },
+  {
+    name: 'should output will be equal [5]',
+    input: [
+      [1, 1, 7, 1, 1, 5],
+      [1, 1, 1, 1, 1, 5],
+      [5, 5, 5, 5, 5, 7]
+    ],
+    output: [5]
   }
 ];
 
