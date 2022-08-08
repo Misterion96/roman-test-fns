@@ -72,7 +72,7 @@ function findIntersectArrays(...args) {
     
     function deleteItem(){
       for(let i=0; i<m.length; i++){
-        for(let j=i+1; j<m.length-1; j++){
+        for(let j=i+1; j<=m.length-1; j++){
           if(m[i]==m[j]){
             m.splice(j, 1);
             console.log('удаляю дубликат');
