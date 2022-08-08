@@ -17,7 +17,7 @@ const TEST_CASES = [
     output: []
   },
   {
-    name: 'should output will be equal [5, 7]',
+    name: 'should get [5, 7]',
     input: [
       [1, 1, 7, 1, 1, 5],
       [7, 5],
@@ -26,7 +26,7 @@ const TEST_CASES = [
     output: [5, 7]
   },
   {
-    name: 'should output will be equal [5]',
+    name: 'should get [5]',
     input: [
       [1, 1, 7, 1, 1, 5],
       [1, 1, 1, 1, 1, 5],
