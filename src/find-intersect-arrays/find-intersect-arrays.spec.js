@@ -17,13 +17,22 @@ const TEST_CASES = [
     output: []
   },
   {
-    name: 'should output will be equal [5, 7]',
+    name: 'should get [5, 7]',
     input: [
       [1, 1, 7, 1, 1, 5],
       [7, 5],
       [5, 5, 5, 5, 5, 7]
     ],
     output: [5, 7]
+  },
+  {
+    name: 'should get [5]',
+    input: [
+      [1, 1, 7, 1, 1, 5],
+      [1, 1, 1, 1, 1, 5],
+      [5, 5, 5, 5, 5, 7]
+    ],
+    output: [5]
   }
 ];
 
@@ -31,7 +40,7 @@ describe('test find intersect arrays', () => {
   TEST_CASES.forEach(({name, input, output}) => {
     it(name, () => {
       const result = findIntersectArrays(...input)
-      expect(result).toStrictEqual(output)
+      expect(result.sort()).toStrictEqual(output.sort())
     })
   })
 })
