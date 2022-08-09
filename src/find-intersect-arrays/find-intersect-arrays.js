@@ -7,73 +7,102 @@ function findIntersectArrays(...args) {
  
     let m = [];             // выходной массив
     let minLength = 0;      // мин длина входного массива
-    let minArray = 0;       // номер мин масива
+    let minArray = 0;       // номер мин масcива
     let newminLength = 0;   // вспомогательная переменная  
-    
-    for (let i = 0; i <= args.length-2; i++){   // ищем минимиальный входной массив
-      minLength=args[i].length;
-      minArray= i;
-      
-      for(let j = i+1; j <= args.length-1; j++){
-        newminLength=args[j].length;
-        if(newminLength<minLength){
-          minLength=newminLength;
-          minArray= j;
-        }
-        // console.log('Длина самого короткого массива равна = ' + minLength);
-        // console.log('Самый короткий массив ' + minArray);
-        // console.log(args[minArray]);
-        // console.log('проверка длины самого короткого массива ' + args[minArray].length);
-      }
-    }
 
-    for (let i=0; i<minLength; i++){                         //  берем число из мелкого массива 
-      for (let j=0; j<args.length; j++){                     //  по каждому входящему массиву args
-        if(j!=minArray){                                     //  кроме самого короткого массива, его пропускаем
-          for(let k=0; k<args[j].length; k++){
-            if(args[minArray][i]==args[j][k]){               //  если число самого мелкого массива равно числу текущего массива
-              m[i]=args[j][k];                               //   формируем массив m
-            } 
+    function findMinArray(){                    // ищем минимиальный входной массив
+      for (let i = 0; i <= args.length-2; i++){   
+        minLength=args[i].length;
+        minArray= i;
+        
+        for(let j = i+1; j <= args.length-1; j++){
+          newminLength=args[j].length;
+          if(newminLength<minLength){
+            minLength=newminLength;
+            minArray= j;                         // номер минимального входного массива
           }
         }
       }
-    }  
+      return minLength, minArray
+    }
     
-    console.log('собранный массив совпадений m=', m)
+    // console.log('Длина самого короткого массива равна = ', minLength);
+    // console.log('Самый короткий массив ', minArray);
+    // console.log(args[minArray]);
+    // console.log('проверка длины самого короткого массива ', args[minArray].length);
+    
+    function findEqual(){ 
+      for (let i=0; i<minLength; i++){                         //  берем число из мелкого массива 
+        for (let j=0; j<args.length; j++){                     //  по каждому входящему массиву args
+          if(j!=minArray){                                     //  кроме самого короткого массива, его пропускаем
+            for(let k=0; k<args[j].length; k++){
+              if(args[minArray][i]==args[j][k]){               //  если есть совпадение, то пишем это число в массив m
+                m[i]=args[j][k];                               //  формируем массив m
+              } 
+              // else {
+                //   m[i]=NaN;
+                // }
+              }
+            }
+          }
+        }
+        return m  
+      }
 
-
-    for(let i=0; i<m.length; i++){
-      if(m[i]===undefined||m[i]===NaN||m[i]===''){                                   // проверка на несовпадение
+      function emptyArray(){                                   // формируем пустой массив, если нет совпадений
         m=[];
-        console.log('нет совпадений, возвращаем m', m)
+        console.log('нет совпадений, обнуляем m:', m)
         return m
-      }
     }
-
-    for (let i=0; i<=m.length-2; i++){                // сортировка массива по возрастанию
-      let minNumber=m[i];
-      
-      for(let j = i+1; j<=m.length-1; j++){
-        let newminNumber=m[j];
-        if(newminNumber<minNumber){
-          m[i]=newminNumber;
-          m[j]=minNumber;
-        }
-      }
-    }
-    console.log('m по возрастанию =', m)
     
-    for(let i=0; i<m.length; i++){
-      for(let j=i+1; j<m.length-1; j++){
-        if(m[i]==m[j]){
-          m.splice(j, 1);
-          console.log('удаляю')
-          i=0;
+    function sortingArray(){                        // сортировка массива по возрастанию
+      for (let i=0; i<=m.length-2; i++){                        
+        let minNumber=m[i];
+        for(let j = i+1; j<=m.length-1; j++){
+          let newminNumber=m[j];
+          if(newminNumber<minNumber){
+            m[i]=newminNumber;
+            m[j]=minNumber;
+          }
+        }
+      }
+      console.log('m по возрастанию =', m)
+      return m
+    }
+    
+    function deleteItem(){
+      for(let i=0; i<m.length; i++){
+        for(let j=i+1; j<=m.length-1; j++){
+          if(m[i]==m[j]){
+            m.splice(j, 1);
+            console.log('удаляю дубликат');
+            // i=0;
+          }
+        }
+      }
+      return m
+    }
+
+    if (args==[]){                                          // если входной массив пустой
+      emptyArray()                                          // если нет совпадений, то обнуляем массив 
+    }
+    else{
+      findMinArray()
+      findEqual()
+      console.log('собранный массив совпадений m=', m)
+      for(let i=0; i<m.length; i++){
+        if(m[i]===undefined||m[i]===NaN||m[i]===''){         // проверка на несовпадение
+          emptyArray()                                       // если нет совпадений, то обнуляем массив 
+        }    
+        else{                                                // если ненулевой массив
+          sortingArray()                                     // то его сортируем по возрастанию  
+          deleteItem()                                       // удаляем одинаковые ячейки
         }
       }
     }
-  console.log('m =', m)
-  return m
-}
 
+    console.log('итоговый массив совпадений m =', m)
+    return m
+  }
+  
 module.exports = findIntersectArrays
