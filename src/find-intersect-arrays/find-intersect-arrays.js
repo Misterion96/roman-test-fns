@@ -7,7 +7,7 @@ function findIntersectArrays(...args) {
  
     let m = [];             // выходной массив
     let minLength = 0;      // мин длина входного массива
-    let minArray = 0;       // номер мин масива
+    let minArray = 0;       // номер мин масcива
     let newminLength = 0;   // вспомогательная переменная  
 
     function findMinArray(){                    // ищем минимиальный входной массив
